@@ -1,0 +1,136 @@
+#include<iostream>
+using namespace std;
+class stack
+{
+public:
+	bool isempty()
+	{
+		if (top==-1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	bool isfull()
+	{
+		if (top==size-1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	void push(int value)
+	{
+		if (!isfull())
+		{
+			top++;
+			arr[top] = value;
+		}
+		else
+		{
+			cout << "stack overflow\n";
+		}
+	}
+	void pop()
+	{
+		if (isempty())
+		{
+			cout << "stack underflow\n";
+		}
+		else
+		{
+			cout << "popped element = " << arr[top]<<"\n";
+			top--;
+		}
+	}
+	int peek()
+	{
+		if (isempty())
+		{
+			cout << "stack is empty\n";
+			return -1;
+		}
+		else
+		{
+			int getvalue = top;
+			return arr[getvalue];
+		}
+	}
+	int peekindex(int index)
+	{
+		if (index<=0)
+		{
+			return -1;
+		}
+		int topval = top;
+		if ((topval-index+1)<0)
+		{
+			return -1;
+		}
+		else
+		{
+			int ans = arr[topval - index + 1];
+			return ans;
+		}
+	}
+	int peeklast()
+	{
+		if (!isempty())
+		{
+			return arr[0];
+		}
+		else
+		{
+			return -1;
+		}
+	}
+	int topval()
+	{
+		int topval = top;
+		return topval;
+	}
+	stack() {}
+	stack(int size) 
+	{
+		this->size = size;
+		this->top = -1;
+		this->arr = new int[size];
+	}
+	~stack() 
+	{
+		delete[] arr;
+	}
+
+private:
+	int size = 0;
+	int* arr = 0;
+	int top = -1;
+};
+
+int main()
+{
+	stack s(3);
+	s.push(12);
+	s.push(13);
+	s.push(17);
+	//s.pop();
+	//s.pop();
+	//s.pop();
+	cout << "\n";
+	//cout << "values from the stack\n";
+	//for (int i = 1; i <= s.topval()+1; i++)
+	//{
+	//	cout << "value at " << i << " position is = " << s.peekindex(i) << endl;;
+	//}
+	//cout << s.peekindex(0) << endl;
+	//cout<<s.peek()<<endl;
+	cout << s.peeklast() << endl;
+	//cout << s.isfull()<<endl;
+	//cout << s.isempty()<<endl;
+}
