@@ -1,0 +1,146 @@
+#include<iostream>
+using namespace std;
+class node
+{
+public:
+	node(){}
+	node(int value)
+	{
+		this->data = value;
+		this->next = NULL;
+	}
+	~node(){}
+
+	int data = 0;
+	node* next = NULL;
+private:
+};
+class stack:public node
+{
+public:
+	bool isempty()
+	{
+		if (nodecount==0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	bool isfull()
+	{
+		if (nodecount==size)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	void push(int value)
+	{
+		if (nodecount==size || size==-1)
+		{
+			cout << "stack overflow\n";
+			return;
+		}
+		node* newnode = new node(value);
+		newnode->next = head;
+		head = newnode;
+		nodecount++;
+	}
+	void pop()
+	{
+		if (head==NULL || nodecount==0)
+		{
+			cout << "stack underflow\n";
+			return;
+		}
+		node* temp = head;
+		head = head->next;
+		delete temp;
+		nodecount--;
+	}
+	int peek()
+	{
+		if (!isempty())
+		{
+			return head->data;
+		}
+		return NULL;
+	}
+	int peakindex(int index)
+	{
+		if (index<=0)
+		{
+			return 0;
+		}
+		node* ptr = head;
+		int c = 1;
+		while (ptr->next!=NULL)
+		{
+			if (index==c)
+			{
+				break;
+			}
+			ptr = ptr->next;
+			c++;
+		}
+		if (c<index)
+		{
+			return 0;
+		}
+		return ptr->data;
+	}
+	stack() 
+	{
+		this->size = -1;
+		this->head = NULL;
+	}
+	stack(int size)
+	{
+		this->nodecount = 0;
+		this->size = size;
+		this->head = NULL;
+	}
+	~stack() 
+	{
+		if (head!=NULL)
+		{
+			node* temp = head;
+			while (temp!=NULL)
+			{
+				node* del = temp;
+				temp = temp->next;
+				delete del;
+			}
+			size = 0;
+			nodecount = 0;
+		}
+	}
+
+private:
+	node* head = NULL;
+	int size = 0;
+	int nodecount = 0;
+};
+int main()
+{
+	stack s(3);
+	s.push(2);
+	s.push(3);
+	s.push(9);
+	cout << s.peek() << endl;
+	cout << s.peakindex(1) << endl;
+
+	//while (!s.isempty())
+	//{
+	//	s.pop();
+	//}
+	//cout << s.peek() << endl;
+	//cout << s.isempty() << endl;
+	//cout << s.isfull() << endl;
+}
