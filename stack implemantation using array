@@ -1,0 +1,145 @@
+#include<iostream>// stack implemantation
+using namespace std;
+class stack
+{
+public:
+	int peek()
+	{
+		if (!isEmpty())
+		{
+			int*ptr=topindex;
+			ptr--;
+			int a = *(ptr);
+			return a;
+		}
+		else
+		{
+			cout << "stck is empty\n";
+			return 0;
+		}
+	}
+	int peekindex(int index)
+	{
+		if (isEmpty() || index<=0)
+		{
+			return 0;
+		}
+		int* ptr = topindex;
+		int c = 0;
+		while (ptr!=lastindex)
+		{
+			if (index==c)
+			{
+				break;
+			}
+			index--;
+			ptr--;
+		}
+		if (index>0)
+		{
+			return 0;
+		}
+		int a = *(ptr);
+		return a;
+	}
+	void printstack()
+	{
+		//for (int i = 0; i < size; i++)//we can run a loop like this too
+		//{
+		//	cout << arr[i]<<" ";
+		//}
+		int* ptr = arr;
+		while (ptr!=topindex)
+		{
+			cout << *(ptr)<<" ";
+			ptr++;
+		}
+	}
+	void push(int value)
+	{
+		if (!isfull())
+		{
+			*topindex = value;
+			topindex++;
+		}
+		else
+		{
+			cout << "stack overflow\n";
+		}
+	}
+	void pop()
+	{
+		if (isEmpty())
+		{
+			cout << "stack underflow\n";
+		}
+		else
+		{
+			topindex--;
+			cout << "poped element = " << *(topindex);
+		}
+	}
+	bool isfull() 
+	{
+		if (topindex==(lastindex+size))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	bool isEmpty()
+	{
+		if (topindex==lastindex)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	stack() {}
+	stack(int size) 
+	{
+		this->size = size;
+		this->arr = new int[size];
+		this->topindex = arr;
+		this->lastindex = arr;
+	}
+	~stack() 
+	{
+		delete[] arr;
+	}
+private:
+	int size=0;
+	int* arr=0;
+	int* topindex=0,*lastindex=0;
+};
+
+int main()
+{
+	stack s(4);
+	s.push(1);
+	s.push(10);
+	s.push(13);
+	s.push(44);
+	//int i = 22;
+	//while (!s.isfull())
+	//{
+	//	s.push(i);
+	//	i++;
+	//}
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	s.pop();
+	//	cout << "\n";
+	//}
+	cout << s.peek() << endl;
+	cout<<s.peekindex(1);
+	//s.printstack();
+	//cout << s.isfull();
+	return 0;
+}
