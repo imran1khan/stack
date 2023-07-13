@@ -1,0 +1,113 @@
+#include<iostream>
+using namespace std;
+class twostack
+{
+public:
+	void Stop()
+	{
+		if (top2<size)
+		{
+			cout << arr[top2];
+		}
+		else
+		{
+			cout << "stack is empty\n";
+			return;
+		}
+	}
+	void Spush(int val)
+	{
+		if ((top2-top1)>1)
+		{
+			top2--;
+			arr[top2] = val;
+		}
+		else
+		{
+			cout << "stack overflow\n";
+			return;
+		}
+	}
+	void Spop()
+	{
+		if (top2<size)
+		{
+			cout << arr[top2];
+			top2++;
+		}
+		else
+		{
+			cout << "stack is underflow\n";
+			return;
+		}
+	}
+	void Ftop()
+	{
+		if (top1>=0)
+		{
+			cout << arr[top1];
+		}
+		else
+		{
+			cout << "stack is empty\n";
+			return;
+		}
+	}
+	void Fpush(int val)
+	{
+		if ((top2-top1)>1)
+		{
+			top1++;
+			arr[top1] = val;
+		}
+		else
+		{
+			cout << "stack overflow\n";
+			return;
+		}
+	}
+	void fpop()
+	{
+		if (top1>=0)
+		{
+			cout << arr[top1];
+			top1--;
+		}
+		else
+		{
+			cout << "stack underflow\n";
+			return;
+		}
+	}
+	twostack() {}
+	twostack(int size) 
+	{
+		this->size = size;
+		this->arr = new int[size];
+		top1 = -1;
+		top2 = size;
+	}
+	~twostack() 
+	{
+		delete[] this->arr;
+		this->arr = NULL;
+	}
+
+private:
+	int* arr = NULL;
+	int size = 0;
+	int top1 = -1;
+	int top2 = -1;
+};
+int main() 
+{
+	twostack s(4);
+	s.Fpush(12);
+	s.Fpush(22);
+	s.Fpush(2);
+	s.Spush(3);
+	//s.Ftop();
+	//s.Stop();
+	//s.Spush(3);
+	s.Fpush(4);
+}
