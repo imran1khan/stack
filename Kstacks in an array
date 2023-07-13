@@ -1,0 +1,111 @@
+#include<iostream>
+using namespace std;
+class Kstacks
+{
+public:
+	void topval(int stacknum)
+	{
+		if (stacknum >= numofstack || stacknum < 0)
+		{
+			cout << "invalid stack locaion\n";
+			return;
+		}
+		if (top[stacknum]==-1)
+		{
+			cout << "stack is empty\n";
+		}
+		else
+		{
+			int i = top[stacknum];
+			cout << data[i];
+		}
+	}
+	void push(int stacknum,int val)
+	{
+		if (stacknum>=numofstack || stacknum<0)
+		{
+			cout << "invalid stack locaion\n";
+			return;
+		}
+		if (freespace==-1)
+		{
+			cout << "stack overflow\n";
+		}
+		else
+		{
+			int i = freespace;
+			freespace = next[i];
+			next[i] = top[stacknum];
+			top[stacknum] = i;
+			data[i] = val;
+		}
+	}
+	void pop(int stacknum)
+	{
+		if (stacknum >= numofstack || stacknum < 0)
+		{
+			cout << "invalid stack locaion\n";
+			return;
+		}
+		if (top[stacknum]==-1)
+		{
+			cout << "stack underflow\n";
+		}
+		else
+		{
+			int i = top[stacknum];
+			top[stacknum] = next[i];
+			next[i] = freespace;
+			freespace = i;
+			cout << data[i];
+		}
+	}
+	Kstacks() {}
+	Kstacks(int stacks,int size) 
+	{
+		this->size = size;
+		this->numofstack = stacks;
+		this->data = new int[size];
+		this->top = new int[stacks];
+		this->next = new int[size];
+		freespace = 0;
+		for (int i = 0; i < stacks; i++)//putting -1 in top to indecate that the stack is empty
+		{
+			top[i] = -1;
+		}
+		for (int i = 0; i < size-1; i++)
+		{
+			next[i] = i + 1;
+		}
+		next[size - 1] = -1;
+	}
+	~Kstacks() 
+	{
+		delete[] this->data;
+		this->data = NULL;
+		delete[] this->next;
+		this->next = NULL;
+		delete[] this->top;
+		this->top = NULL;
+	}
+
+private:
+	int size = 0;
+	int numofstack = 0;
+	int* data = NULL;
+	int* top = NULL;
+	int* next = NULL;
+	int freespace = 0;
+};
+int main()
+{
+	Kstacks a(2,4);
+	a.push(0,45);
+	a.push(0,23);
+	//a.push(0,20);
+	//a.push(0,2);
+	a.topval(0);
+	//a.topval(1);
+	a.push(1, 22); cout << "\n";
+	a.topval(1);
+}
