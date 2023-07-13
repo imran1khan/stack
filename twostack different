@@ -1,0 +1,178 @@
+#include<iostream>
+using namespace std;
+class twostack
+{
+public:
+	void push2(int val) 
+	{
+		if (Secondisfull())
+		{
+			cout << "stack is full\n";
+			return;
+		}
+		else
+		{
+			*midtolast = val;
+			midtolast++;
+		}
+	}
+	void pop2()
+	{
+		if (Secondisempty())
+		{
+			cout << "stack under flow\n";
+			return;
+		}
+		else
+		{
+			midtolast--;
+			cout << "poped element is = " << *midtolast;
+		}
+	}
+	void top2()
+	{
+		if (Secondisempty())
+		{
+			cout << "stack is empty\n";
+			return;
+		}
+		else
+		{
+			int* ptr = midtolast;
+			ptr--;
+			cout << "top element is = " << *ptr;
+		}
+	}
+	bool Secondisfull()
+	{
+		if (midtolast==(lastindex+size))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	bool Secondisempty()
+	{
+		int* ptr = midindx;
+		if (midtolast==(ptr+1))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	void top1() 
+	{
+		if (Firstisempty())
+		{
+			cout << "stack is empty\n";
+		}
+		else
+		{
+			int* ptr = topindex;
+			ptr--;
+			cout << *ptr;
+		}
+	}
+	void push1(int val)
+	{
+		if (Firstifull())
+		{
+			cout << "stackis full\n";
+			return;
+		}
+		else
+		{
+			*topindex = val;
+			topindex++;
+		}
+	}
+	void pop1()
+	{
+		if (Firstisempty())
+		{
+			cout << "stack is underflow\n";
+		}
+		else
+		{
+			topindex--;
+			cout << *topindex;
+		}
+	}
+	bool Firstifull() 
+	{
+		if (topindex==midindx+1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	bool Firstisempty()
+	{
+		if (topindex==lastindex)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	twostack() 
+	{
+		//this->size = 0;
+		//this->arr = new int[size];
+		//this->lastindex = arr;
+		//this->topindex = arr;
+	}
+	twostack(int size) 
+	{
+		this->size = size;
+		this->arr = new int[size];
+		this->lastindex = arr;
+		this->topindex = arr;
+		this->midindx = arr;
+		if (size % 2 == 0)
+		{
+			midindx = midindx + (this->size / 2);
+		}
+		else
+		{
+			midindx = midindx + ((this->size + 1) / 2);
+		}
+		this->midtolast = midindx + 1;
+	}
+	~twostack() 
+	{
+		delete[] this->arr;
+		this->arr = nullptr;
+	}
+
+private:
+	int* arr=NULL;
+	int size = 0;
+	int* topindex = NULL;
+	int* midindx = NULL;
+	int* midtolast = NULL;
+	int* lastindex = NULL;
+};
+int main() 
+{
+	twostack s(5);
+	s.push1(12);
+	s.push1(13);
+	s.push1(33);
+	s.push1(244);
+	s.top1();
+	s.push2(3);
+	//s.push2(45);
+	s.top2();
+}
